@@ -1,9 +1,9 @@
-import Header from "./Components/header";
+import Header from "../Components/header";
 
-import './styles/global.scss'
+import '../styles/global.scss'
 
-import styles from '../pages/styles/app.module.scss'
-import Player from "./Components/Player";
+import styles from '../styles/app.module.scss'
+import Player from "../Components/Player";
 
 
 
