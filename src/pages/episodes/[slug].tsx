@@ -28,14 +28,14 @@ type Episode = {
 export default function Episode({ episode }: episodeProps) {
     
     return (
-       <div className={styles.episode}>
-           <div className={styles.thumbnailContainer}>
+      
+      <div className={styles.episode}>
+     <div className={styles.thumbnailContainer}>
+      
         <Link href="/">
         <button type={"button"}>
             <img src="/arrow-left.svg" alt="Voltar"/>
-        </button>
-
-        
+        </button> 
         </Link>
        
         <Image
@@ -65,22 +65,28 @@ export default function Episode({ episode }: episodeProps) {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-    return{
-        paths: [
-        {
-            params: {
 
-                slug: 'a-importancia-da-contribuicao-em-open-source'
- 
-                }
+    const { data } = await api.get(`episodes`,{
+        params: {
+            _limit: 2,
+            _sort: 'published_at',
+            _order: 'desc'
         }
-        ],
+    })
 
-        //retorna o ep
+    const paths = data.map(episode => {
+        return{
+            params: {
+                slug: episode.id
+            }
+        }
+    })
+    return{
+        paths,
         fallback: 'blocking'
-        // obgrigatório em toda rota que está usando geração estática e que possui parâmetros dinâmicos "[]"
     }
-}
+}   // obgrigatório em toda rota que está usando geração estática e que possui parâmetros dinâmicos "[]"
+
 
 export const getStaticProps: GetStaticProps = async (ctx) => {
     const { slug } = ctx.params;

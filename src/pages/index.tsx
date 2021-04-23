@@ -9,13 +9,15 @@ import { api } from '../Services/api';
 import { covertDurationToTimeString } from '../utils/convertDurationToTimeString';
 
 import styles from './home.module.scss';
+import { useContext } from 'react';
+import { PlayerContext } from '../Contexts/PlayerContexts';
 // importando o getstaticprops do next
 
 type Episode = {
     id: string;
     title: string;
     members: string;  
-    Duration: string;
+    duration: number;
     thumbnail: string; 
     durationAsString: string;
     url: string;
@@ -31,6 +33,8 @@ type HomeProps = {
 
 
     export default function Home({ latestEpisodes,  allEpisodes }: HomeProps) {
+        const { play } = useContext(PlayerContext)
+
     return (
   
   <div className={styles.homePage}> 
@@ -59,7 +63,7 @@ type HomeProps = {
                         <span>{episode.durationAsString}</span>
                   </div>
 
-                   <button type = "button">
+                   <button type ="button" onClick={() => play(episode)}>
                          <img src="/play-green.svg" alt="Tocar episódio"/>
                   </button>
 
