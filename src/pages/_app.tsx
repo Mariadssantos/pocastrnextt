@@ -1,36 +1,18 @@
 import Header from "../Components/header";
 
 import '../styles/global.scss'
-
 import styles from '../styles/app.module.scss'
+
 import Player from "../Components/Player";
-import { PlayerContext } from "../Contexts/PlayerContexts";
-import { useState } from "react";
+import { PlayerContextProvider } from '../Contexts/PlayerContexts';
 
 
 
 function MyApp({ Component, pageProps }) {
 
-  const [episodeList, setEpisodeList] = useState([]);
-  const [currentEpisodeIndex, setCurrentEpisodeIndex] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(false);
-
-  function play(episode) {
-    setEpisodeList([episode]);
-    setCurrentEpisodeIndex(0);
-    setIsPlaying(true);
-  }
-
-  function togglePlay() {
-    setIsPlaying(!isPlaying);
-  }
- 
-  function setPlayingState(state: boolean){
-    setIsPlaying(state);
-  }
+  
   return(
-   
-    <PlayerContext.Provider value={{episodeList, currentEpisodeIndex, play, isPlaying, togglePlay, setPlayingState}}>
+   <PlayerContextProvider> 
  <div className={styles.wrapper}>
       <main>
       <Header />
@@ -38,9 +20,8 @@ function MyApp({ Component, pageProps }) {
       </main>
       <Player />  
     </div>
-    </PlayerContext.Provider>
-    // agora todos os componentes dentro do playercontext tem acesso a esse valor
-   
+    </PlayerContextProvider>
+
   )
 }
 
